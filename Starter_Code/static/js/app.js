@@ -5,7 +5,7 @@ function buildMetadata(sample) {
     var mdata = data.metadata;
 
     // Filter the metadata for the object with the desired sample number
-    var resultArray = mdata.filter(sampleObj => sampleObj.id == sample);
+    var resultArray = mdata.filter(x => x.id == sample);
     var result = resultArray[0];
 
     // Use d3 to select the panel with id of `#sample-metadata`
@@ -16,8 +16,7 @@ function buildMetadata(sample) {
 
     // Inside a loop, use d3 to append new tags for each key-value in the filtered metadata
     Object.entries(result).forEach(([key, value]) => {
-      PANEL.append("div").attr("class", "metadata-item").text(`${key.toUpperCase()}: ${value}`);
-    });
+      PANEL.append("div").attr("class", "metadata-item").text(`${key.toUpperCase()}: ${value}`);});
   });
 }
 
@@ -29,7 +28,7 @@ function buildCharts(sample) {
     var samples = data.samples;
     
     // Filter the samples for the object with the desired sample number
-    var resultArray = samples.filter(sampleObj => sampleObj.id == sample);
+    var resultArray = samples.filter(x => x.id == sample);
     var result = resultArray[0];
 
     // Get the otu_ids, otu_labels, and sample_values
@@ -85,11 +84,6 @@ function buildCharts(sample) {
       plot_bgcolor: 'black'    
     };
 
-    Plotly.newPlot("bar", barTrace, barLayout);
-    var barLayout = {
-      title: "Top 10 Bacteria Cultures Found",
-      margin: { t: 30, l: 150 }
-    };
         // Render the Bar Chart
     Plotly.newPlot("bar", barTrace, barLayout);
   });
@@ -121,16 +115,14 @@ function init() {
 }
 
 // Function for event listener
+
 function optionChanged(newSample) {
   // Build charts and metadata panel each time a new sample is selected
   buildCharts(newSample);
   buildMetadata(newSample);
 }
 
-
-
 // Initialize the dashboard
 init();
 
-//References for this project: Jeremiah Mergenthaler
-//Provided extensive guidance to complete this project
+//References for this project: Jeremiah Mergenthaler, Saad Nasir
